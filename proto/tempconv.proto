@@ -1,0 +1,34 @@
+syntax = "proto3";
+option go_package = "github.com/PaulBuchi/TempConv/backend/pb;pb";
+package tempconv;
+
+// The TempConv service defines two unary RPCs for temperature conversion.
+service TempConvService {
+  // Converts Celsius to Fahrenheit.
+  rpc CelsiusToFahrenheit(TemperatureRequest) returns (TemperatureResponse);
+  // Converts Fahrenheit to Celsius.
+  rpc FahrenheitToCelsius(TemperatureRequest) returns (TemperatureResponse);
+}
+
+// TemperatureRequest holds a single numeric value.
+message TemperatureRequest {
+  double value = 1;
+}
+
+// TemperatureResponse holds the result of a conversion.
+message TemperatureResponse {
+  double value = 1;
+}
+
+// Health service used for readiness/liveness checks.
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// Empty request for health checks.
+message HealthCheckRequest {}
+
+// Response indicating health status.
+message HealthCheckResponse {
+  bool ok = 1;
+}

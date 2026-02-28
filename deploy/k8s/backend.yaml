@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempconv-backend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tempconv-backend
+  template:
+    metadata:
+      labels:
+        app: tempconv-backend
+    spec:
+      containers:
+      - name: backend
+        # Replace <project> with your actual Google Cloud project ID
+        image: europe-west1-docker.pkg.dev/<project>/tempconv-backend/backend:1.0.0
+        ports:
+        - containerPort: 50051
+        readinessProbe:
+          exec:
+            command: ["grpc_health_probe", "-addr=:50051"]
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          exec:
+            command: ["grpc_health_probe", "-addr=:50051"]
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempconv-backend
+  namespace: default
+spec:
+  selector:
+    app: tempconv-backend
+  ports:
+  - name: grpc
+    port: 50051
+    targetPort: 50051

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempconv-frontend
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tempconv-frontend
+  template:
+    metadata:
+      labels:
+        app: tempconv-frontend
+    spec:
+      containers:
+      - name: frontend
+        # Replace <project> with your actual Google Cloud project ID
+        image: europe-west1-docker.pkg.dev/<project>/tempconv-frontend/frontend:1.0.0
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "300m"
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempconv-frontend
+  namespace: default
+spec:
+  selector:
+    app: tempconv-frontend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

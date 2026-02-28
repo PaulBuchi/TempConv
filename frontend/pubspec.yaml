@@ -1,0 +1,19 @@
+name: tempconv
+description: A temperature converter using gRPC and Flutter Web
+version: 0.1.0
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  grpc: ^5.1.0
+  protobuf: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

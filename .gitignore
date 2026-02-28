@@ -1,32 +1,25 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
-#
-# Binaries for programs and plugins
+# Common ignores for Go, Flutter and build artifacts
 *.exe
-*.exe~
 *.dll
 *.so
 *.dylib
-
-# Test binary, built with `go test -c`
 *.test
-
-# Code coverage profiles and other test artifacts
 *.out
-coverage.*
-*.coverprofile
-profile.cov
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# Go
+bin/
+vendor/
 
-# Go workspace file
-go.work
-go.work.sum
+# Flutter
+build/
+.dart_tool/
+pubspec.lock
+.packages
 
-# env file
-.env
+# Generated proto code
+backend/pb/
+frontend/lib/src/generated/
 
-# Editor/IDE
-# .idea/
-# .vscode/
+# Docker
+*.tar
+EOF
