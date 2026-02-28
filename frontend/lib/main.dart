@@ -37,9 +37,9 @@ class _TempConvHomePageState extends State<TempConvHomePage> {
   void initState() {
     super.initState();
     // Determine the API base URL from environment. Fallback to relative path.
-    const apiBaseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8080');
+    final apiBaseUrl = const String.fromEnvironment('API_BASE_URL', defaultValue: '');
+    final endpoint = apiBaseUrl.isNotEmpty ? apiBaseUrl : Uri.base.origin;
     // Append the service prefix for gRPC (Envoy routes /api.tempconv.TempConvService/)
-    final endpoint = '$apiBaseUrl';
     _client = TempConvClient(endpoint);
   }
 

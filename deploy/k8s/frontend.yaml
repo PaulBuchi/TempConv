@@ -16,7 +16,7 @@ spec:
       containers:
       - name: frontend
         # Replace <project> with your actual Google Cloud project ID
-        image: europe-west1-docker.pkg.dev/<project>/tempconv-frontend/frontend:1.0.0
+        image: europe-west1-docker.pkg.dev/tempconv-grpc-paul-2026/tempconv-frontend/frontend:1.0.2
         ports:
         - containerPort: 80
         readinessProbe:

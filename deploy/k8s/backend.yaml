@@ -16,17 +16,17 @@ spec:
       containers:
       - name: backend
         # Replace <project> with your actual Google Cloud project ID
-        image: europe-west1-docker.pkg.dev/<project>/tempconv-backend/backend:1.0.0
+        image: europe-west1-docker.pkg.dev/tempconv-grpc-paul-2026/tempconv-backend/backend:1.0.0
         ports:
         - containerPort: 50051
         readinessProbe:
-          exec:
-            command: ["grpc_health_probe", "-addr=:50051"]
+          tcpSocket:
+            port: 50051
           initialDelaySeconds: 5
           periodSeconds: 10
         livenessProbe:
-          exec:
-            command: ["grpc_health_probe", "-addr=:50051"]
+          tcpSocket:
+            port: 50051
           initialDelaySeconds: 10
           periodSeconds: 30
         resources:
